@@ -16,7 +16,6 @@ body {
 
 .logo img {
     width: 70px;
-    /* mund ta bësh 50px nëse do më të madhe */
     height: 70px;
     object-fit: contain;
 }
@@ -34,11 +33,11 @@ body {
 }
 
 .blue {
-    color: #1e3a8a; /* blu e errët */
+    color: #1e3a8a;
 }
 
 .green {
-    color: #2e7d32; /* jeshile */
+    color: #2e7d32;
 }
 header {
     display: flex;
@@ -149,7 +148,6 @@ header input {
 
     padding: 80px 60px;
     min-height: 300px;
-    /* zmadhon pamjen e faqes dhe i jep një ndjesi më të gjallë me ngjyrat e gjelbra. */
     background: linear-gradient(135deg, #c8e6c9, #e8f5e9);
 }
 
@@ -176,7 +174,6 @@ header input {
 .hero-video video {
     width: 100%;
     height: 420px;
-    /* 👈 e bën më të madhe */
     border-radius: 16px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
     object-fit: cover;
@@ -187,7 +184,6 @@ header input {
     align-items: center;
     justify-content: space-between;
     gap: 40px;
-
     padding: 60px;
     background: #f1f8e9;
 }
@@ -285,7 +281,6 @@ header input {
     border-radius: 5px;
 }
 
-/* Quantity box */
 .qty {
     display: flex;
     justify-content: center;
@@ -310,7 +305,6 @@ header input {
     color: white;
 }
 
-/* Add to cart button */
 .product button {
     width: 100%;
     margin-top: 10px;
@@ -335,7 +329,6 @@ header input {
     font-size: 18px;
 }
 
-/* SLIDER */
 .slider {
     position: relative;
     height: 180px;
@@ -357,7 +350,6 @@ header input {
     opacity: 1;
 }
 
-/* PRODUCT BADGE */
 .badge {
     position: absolute;
     top: 10px;
@@ -369,12 +361,10 @@ header input {
     border-radius: 5px;
 }
 
-/* PRODUCT CARD */
 .product {
     position: relative;
 }
 
-/* QUANTITY */
 .qty {
     display: flex;
     justify-content: center;
@@ -447,7 +437,6 @@ header input {
 
     padding: 15px;
     transform: translateX(100%);
-    /* 👈 e fsheh */
     transition: transform 0.3s ease;
 
     z-index: 9999;
@@ -475,12 +464,10 @@ header input {
     z-index: 9999;
 }
 
-/* show */
 .mega-menu.show {
     display: flex;
 }
 
-/* left side categories */
 .menu-left {
     width: 50%;
     border-right: 1px solid #eee;
@@ -503,7 +490,6 @@ header input {
     font-weight: bold;
 }
 
-/* right side */
 .menu-right {
     width: 50%;
     padding: 20px;
@@ -515,7 +501,6 @@ header input {
 
 .cart.show {
     transform: translateX(0);
-    /* 👈 e hap */
 }
 
 button:hover {
