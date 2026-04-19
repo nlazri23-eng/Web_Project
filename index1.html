@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PharmaCare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo.jpeg" alt="PharmaCare Logo">
+            <h1 class="logo-text">
+                <span class="blue">Pharma</span><span class="green">Care</span>
+            </h1>
+        </div>
+        <nav class="nav-center">
+
+            <a href="#" onclick="showHome()">Home</a>
+            <a href="#" onclick="filterCategory('All')">Products</a>
+
+            <div class="dropdown">
+                <a href="#" onclick="toggleHealthMenu()">Health & Advice</a>
+
+                <div class="mega-menu" id="healthMenu">
+
+                    <div class="menu-left">
+                        <ul>
+                            <li>Athma & allergies</li>
+                            <li>Cold & flu</li>
+                            <li>Coronavirus</li>
+                            <li>Diabetes</li>
+                            <li>Hair care</li>
+                            <li>Men's health</li>
+                            <li>Mother & baby</li>
+                            <li>Online Doctor advice</li>
+                            <li>Oral health</li>
+                            <li>Pain management</li>
+                            <li>Skin care</li>
+                            <li>Stop smoking</li>
+                        </ul>
+                    </div>
+
+                    <div class="menu-right">
+                        <h3>Health & Advice</h3>
+                        <p>Select a category to see information and recommendations.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <a href="#" onclick="toggleHealthMenu()">Contact</a>
+        </nav>
+
+        <input type="text" id="search" placeholder="Search..." onkeyup="searchProducts()">
+
+        <button class="cart-btn" onclick="toggleCart()">Cart</button>
+    </header>
+
+    <section class="hero">
+
+        <div class="hero-text">
+            <h2>Pharmacy You Can Trust</h2>
+            <p>Experience a modern healthcare environment focused on safety, care, and convenience.</p>
+            <p>We provide certified medicines, expert advice, and fast service you can rely on.</p>
+        </div>
+
+        <div class="hero-video">
+            <video autoplay muted loop>
+                <source src="images/pharmacy.mp4.mp4" type="video/mp4">
+                Your browser does not support video.
+            </video>
+        </div>
+
+    </section>
+
+    <h2 class="section-title">About Us</h2>
+    <section class="about">
+        <div class="about-text">
+            <h2>About PharmaCare</h2>
+            <p>
+                PharmaCare is your trusted online pharmacy, dedicated to providing high-quality
+                healthcare products, vitamins, and skincare solutions. We focus on fast delivery,
+                safety, and customer satisfaction.
+            </p>
+
+            <p>
+                Our mission is to make healthcare accessible and simple for everyone, anytime and anywhere.
+            </p>
+        </div>
+
+        <div class="about-image">
+            <img src="images/pharmacy-team.jpeg" alt="Pharmacy Team">
+        </div>
+    </section>
+
+    <h2 class="section-title">Shop by Categories</h2>
+
+    <section class="categories">
+
+        <div class="card" onclick="filterCategory('Medicine')">
+            <img src="images/pain-relief1.jpeg" alt="Medicine">
+            <h3>Medicine</h3>
+            <p>Pain relief & antibiotics</p>
+        </div>
+
+        <div class="card" onclick="filterCategory('Vitamins')">
+            <img src="images/vitamins.jpeg" alt="Vitamins">
+            <h3>Vitamins</h3>
+            <p>Boost your health & immunity</p>
+        </div>
+
+        <div class="card" onclick="filterCategory('Skincare')">
+            <img src="images/skincare.jpeg" alt="Skincare">
+            <h3>Skincare</h3>
+            <p>Healthy skin solutions</p>
+        </div>
+
+        <div class="card" onclick="filterCategory('Baby Products')">
+            <img src="images/baby-care.jpeg" alt="Baby Products">
+            <h3>Baby Products</h3>
+            <p>Safe products for babies</p>
+        </div>
+
+        <div class="card" onclick="filterCategory('Beauty & Hair Care')">
+            <img src="images/beauty.jpeg" alt="Beauty">
+            <h3>Beauty</h3>
+            <p>Skincare & makeup products</p>
+        </div>
+    </section>
+    <p id="emptyMsg">Select a category to view products</p>
+    <section class="products" id="productList"></section>
+    <div id="productList"></div>
+
+    </section>
+
+    <h2 class="section-title">Featured Products</h2>
+    <section class="products" id="productList"></section>
+
+    <section class="slider">
+        <div class="slide active">
+            <h2>Up to 30% OFF Vitamins</h2>
+            <p>Stay healthy this season</p>
+        </div>
+
+        <div class="slide">
+            <h2>Skincare Essentials</h2>
+            <p>Glow with confidence</p>
+        </div>
+
+        <div class="slide">
+            <h2>Fast Delivery Pharmacy</h2>
+            <p>Delivered to your door</p>
+        </div>
+    </section>
+
+
+
+
+    <div class="cart" id="cartBox">
+
+        <button class="close-cart" onclick="toggleCart()">✖</button>
+
+        <h3>Cart</h3>
+        <ul id="cartItems"></ul>
+        <p>Total: €<span id="total">0</span></p>
+
+        <button onclick="showPayment()">Checkout</button>
+    </div>
+
+    <div class="payment" id="paymentBox">
+
+        <h3>Card Payment</h3>
+
+        <input type="text" placeholder="Card Number">
+        <input type="text" placeholder="Card Holder Name">
+        <input type="text" placeholder="MM/YY">
+        <input type="text" placeholder="CVV">
+
+        <button onclick="payNow()">Pay Now</button>
+        <button onclick="closePayment()">Cancel</button>
+
+    </div>
+    <h2 class="section-title">Contact Us</h2>
+    <section id="contact" class="about">
+        <h2>Phy. Irina Lazri</h2>
+        <p>Email: support@pharmacare.com</p>
+        <p>Phone: +123 456 789</p>
+    </section>
+
+    <footer>
+        <p>© 2026 PharmaCare | Open 24/7</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
