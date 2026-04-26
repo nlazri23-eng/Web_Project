@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>PharmaCare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,187 +15,242 @@
 
     <header>
         <div class="logo">
-            <img src="images/logo.jpeg" alt="PharmaCare Logo">
+            <img src="images/logo.jpeg">
             <h1 class="logo-text">
                 <span class="blue">Pharma</span><span class="green">Care</span>
             </h1>
         </div>
         <nav class="nav-center">
-
             <a href="#" onclick="showHome()">Home</a>
-            <a href="#" onclick="filterCategory('All')">Products</a>
-
+            <a href="#" onclick="displayProducts(getProducts(), true)">Products</a>
             <div class="dropdown">
                 <a href="#" onclick="toggleHealthMenu()">Health & Advice</a>
-
                 <div class="mega-menu" id="healthMenu">
-
                     <div class="menu-left">
                         <ul>
-                            <li>Athma & allergies</li>
-                            <li>Cold & flu</li>
-                            <li>Coronavirus</li>
-                            <li>Diabetes</li>
-                            <li>Hair care</li>
-                            <li>Men's health</li>
-                            <li>Mother & baby</li>
-                            <li>Online Doctor advice</li>
-                            <li>Oral health</li>
-                            <li>Pain management</li>
-                            <li>Skin care</li>
-                            <li>Stop smoking</li>
+                            <li onclick="showHealthInfo('asthma')">🫁 Asthma & Allergies</li>
+                            <li onclick="showHealthInfo('cold')">🤧 Cold & Flu</li>
+                            <li onclick="showHealthInfo('coronavirus')">🦠 Coronavirus</li>
+                            <li onclick="showHealthInfo('diabetes')">💉 Diabetes</li>
+                            <li onclick="showHealthInfo('hair')">💇 Hair Care</li>
+                            <li onclick="showHealthInfo('mens')">🧔 Men's Health</li>
+                            <li onclick="showHealthInfo('mother')">🤱 Mother & Baby</li>
+                            <li onclick="showHealthInfo('doctor')">👨‍⚕️ Online Doctor Advice</li>
+                            <li onclick="showHealthInfo('oral')">🦷 Oral Health</li>
+                            <li onclick="showHealthInfo('pain')">💊 Pain Management</li>
+                            <li onclick="showHealthInfo('skin')">🧴 Skin Care</li>
+                            <li onclick="showHealthInfo('smoking')">🚭 Stop Smoking</li>
                         </ul>
                     </div>
-
-                    <div class="menu-right">
+                    <div class="menu-right" id="healthInfoPanel">
                         <h3>Health & Advice</h3>
                         <p>Select a category to see information and recommendations.</p>
                     </div>
-
                 </div>
             </div>
-
-            <a href="#" onclick="toggleHealthMenu()">Contact</a>
+            <a href="#contact">Contact</a>
+            <a href="#" onclick="openAdminPanel()" class="admin-link">⚙ Admin</a>
         </nav>
-
-        <input type="text" id="search" placeholder="Search..." onkeyup="searchProducts()">
-
-        <button class="cart-btn" onclick="toggleCart()">Cart</button>
+        <input type="text" id="search" placeholder="Search products..." onkeyup="searchProducts()">
+        <button class="cart-btn" onclick="toggleCart()"> Cart <span id="cartCount" class="cart-count">0</span></button>
     </header>
 
+    <!-- HERO -->
     <section class="hero">
-
         <div class="hero-text">
             <h2>Pharmacy You Can Trust</h2>
             <p>Experience a modern healthcare environment focused on safety, care, and convenience.</p>
             <p>We provide certified medicines, expert advice, and fast service you can rely on.</p>
+            <button class="cta-btn" onclick="displayProducts(getProducts())">Shop Now →</button>
         </div>
-
         <div class="hero-video">
             <video autoplay muted loop>
                 <source src="images/pharmacy.mp4.mp4" type="video/mp4">
                 Your browser does not support video.
             </video>
         </div>
-
     </section>
 
+    <!-- ABOUT -->
     <h2 class="section-title">About Us</h2>
     <section class="about">
         <div class="about-text">
             <h2>About PharmaCare</h2>
-            <p>
-                PharmaCare is your trusted online pharmacy, dedicated to providing high-quality
-                healthcare products, vitamins, and skincare solutions. We focus on fast delivery,
-                safety, and customer satisfaction.
-            </p>
-
-            <p>
-                Our mission is to make healthcare accessible and simple for everyone, anytime and anywhere.
-            </p>
+            <p>PharmaCare is your trusted online pharmacy, dedicated to providing high-quality healthcare products,
+                vitamins, and skincare solutions. We focus on fast delivery, safety, and customer satisfaction.</p>
+            <p>Our mission is to make healthcare accessible and simple for everyone, anytime and anywhere.</p>
         </div>
-
         <div class="about-image">
             <img src="images/pharmacy-team.jpeg" alt="Pharmacy Team">
         </div>
     </section>
 
+    <!-- CATEGORIES -->
     <h2 class="section-title">Shop by Categories</h2>
-
     <section class="categories">
-
         <div class="card" onclick="filterCategory('Medicine')">
             <img src="images/pain-relief1.jpeg" alt="Medicine">
             <h3>Medicine</h3>
             <p>Pain relief & antibiotics</p>
         </div>
-
         <div class="card" onclick="filterCategory('Vitamins')">
             <img src="images/vitamins.jpeg" alt="Vitamins">
             <h3>Vitamins</h3>
             <p>Boost your health & immunity</p>
         </div>
-
         <div class="card" onclick="filterCategory('Skincare')">
             <img src="images/skincare.jpeg" alt="Skincare">
             <h3>Skincare</h3>
             <p>Healthy skin solutions</p>
         </div>
-
         <div class="card" onclick="filterCategory('Baby Products')">
             <img src="images/baby-care.jpeg" alt="Baby Products">
             <h3>Baby Products</h3>
             <p>Safe products for babies</p>
         </div>
-
         <div class="card" onclick="filterCategory('Beauty & Hair Care')">
             <img src="images/beauty.jpeg" alt="Beauty">
             <h3>Beauty</h3>
             <p>Skincare & makeup products</p>
         </div>
     </section>
-    <p id="emptyMsg">Select a category to view products</p>
-    <section class="products" id="productList"></section>
-    <div id="productList"></div>
 
-    </section>
-
-    <h2 class="section-title">Featured Products</h2>
+    <p id="emptyMsg">Select a category or browse all products</p>
     <section class="products" id="productList"></section>
 
+    <!-- SLIDER -->
+    <h2 class="section-title">Featured Offers</h2>
     <section class="slider">
         <div class="slide active">
             <h2>Up to 30% OFF Vitamins</h2>
             <p>Stay healthy this season</p>
         </div>
-
         <div class="slide">
             <h2>Skincare Essentials</h2>
             <p>Glow with confidence</p>
         </div>
-
         <div class="slide">
             <h2>Fast Delivery Pharmacy</h2>
             <p>Delivered to your door</p>
         </div>
     </section>
 
-
-
-
+    <!-- CART SIDEBAR -->
     <div class="cart" id="cartBox">
-
         <button class="close-cart" onclick="toggleCart()">✖</button>
-
-        <h3>Cart</h3>
+        <h3>🛒 Your Cart</h3>
         <ul id="cartItems"></ul>
-        <p>Total: €<span id="total">0</span></p>
-
-        <button onclick="showPayment()">Checkout</button>
+        <div class="cart-footer">
+            <p class="cart-total">Total: €<span id="total">0.00</span></p>
+            <button class="checkout-btn" onclick="showPayment()">Checkout →</button>
+        </div>
     </div>
 
+    <!-- PAYMENT MODAL -->
+    <div class="modal-overlay" id="paymentOverlay" onclick="closePayment()"></div>
     <div class="payment" id="paymentBox">
-
-        <h3>Card Payment</h3>
-
-        <input type="text" placeholder="Card Number">
-        <input type="text" placeholder="Card Holder Name">
-        <input type="text" placeholder="MM/YY">
-        <input type="text" placeholder="CVV">
-
-        <button onclick="payNow()">Pay Now</button>
-        <button onclick="closePayment()">Cancel</button>
-
+        <h3>💳 Card Payment</h3>
+        <input type="text" placeholder="Card Number (16 digits)" maxlength="19" id="cardNumber">
+        <input type="text" placeholder="Card Holder Name" id="cardName">
+        <div class="card-row">
+            <input type="text" placeholder="MM/YY" maxlength="5" id="cardExpiry">
+            <input type="text" placeholder="CVV" maxlength="3" id="cardCvv">
+        </div>
+        <button class="pay-btn" onclick="payNow()">Pay Now</button>
+        <button class="cancel-btn" onclick="closePayment()">Cancel</button>
     </div>
+
+    <!-- ADMIN PANEL MODAL -->
+    <div class="modal-overlay" id="adminOverlay" onclick="closeAdminPanel()"></div>
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h2>⚙ Admin Panel</h2>
+            <button class="close-admin" onclick="closeAdminPanel()">✖</button>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('add')">➕ Add Product</button>
+            <button class="tab-btn" onclick="switchTab('manage')">📦 Manage Products</button>
+        </div>
+
+        <!-- ADD / EDIT FORM -->
+        <div class="admin-tab" id="tab-add">
+            <h3 id="formTitle">Add New Product</h3>
+            <input type="hidden" id="editId">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Product Name *</label>
+                    <input type="text" id="adminName" placeholder="e.g. Vitamin D3">
+                </div>
+                <div class="form-group">
+                    <label>Price (€) *</label>
+                    <input type="number" id="adminPrice" placeholder="e.g. 12" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="adminCategory">
+                        <option value="">Select category</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Vitamins">Vitamins</option>
+                        <option value="Skincare">Skincare</option>
+                        <option value="Baby Products">Baby Products</option>
+                        <option value="Beauty & Hair Care">Beauty & Hair Care</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="text" id="adminImg" placeholder="images/product.jpg">
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="adminDiscount"> On Sale / Discount
+                    </label>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="save-btn" onclick="saveProduct()">💾 Save Product</button>
+                <button class="reset-btn" onclick="resetForm()">↺ Reset</button>
+            </div>
+            <div id="adminMsg" class="admin-msg"></div>
+        </div>
+
+        <!-- MANAGE TABLE -->
+        <div class="admin-tab hidden" id="tab-manage">
+            <div class="manage-header">
+                <h3>All Products <span id="productCount" class="badge-count">0</span></h3>
+                <input type="text" id="adminSearch" placeholder="Filter products..." oninput="renderAdminTable()">
+            </div>
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Sale</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
     <h2 class="section-title">Contact Us</h2>
-    <section id="contact" class="about">
-        <h2>Phy. Irina Lazri</h2>
-        <p>Email: support@pharmacare.com</p>
-        <p>Phone: +123 456 789</p>
+    <section id="contact" class="contact-section">
+        <div class="contact-card">
+            <div class="contact-icon">👩‍⚕️</div>
+            <h2>Phy. Irina Lazri</h2>
+            <p>📧 support@pharmacare.com</p>
+            <p>📞 +123 456 789</p>
+        </div>
     </section>
 
     <footer>
-        <p>© 2026 PharmaCare | Open 24/7</p>
+        <p>© 2026 PharmaCare | Open 24/7 | Your Health, Our Priority</p>
     </footer>
 
     <script src="script.js"></script>
