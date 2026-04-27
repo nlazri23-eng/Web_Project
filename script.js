@@ -1,4 +1,4 @@
-// ─── DEFAULT PRODUCT DATA ───────────────────────────────────
+// DEFAULT PRODUCT DATA
 const defaultProducts = [
     { id: 1, name: "Paracetamol", price: 5, category: "Medicine", discount: true, img: "images/Paracetamol.jpg" },
     { id: 2, name: "Ibuprofen", price: 8, category: "Medicine", discount: false, img: "images/Ibuprofen.jpg" },
@@ -12,12 +12,13 @@ const defaultProducts = [
     { id: 10, name: "La Roche-Posay SPF", price: 13, category: "Skincare", discount: true, img: "images/La Roche-Posay SPF.jpeg" },
     { id: 11, name: "Lip Gloss YSL", price: 6, category: "Beauty & Hair Care", discount: false, img: "images/YSL.jpeg" },
     { id: 12, name: "Kerastase Gloss Absolu", price: 8, category: "Beauty & Hair Care", discount: false, img: "images/Kerastase Gloss Absolu.jpeg" },
-    { id: 13, name: "Color WOW", price: 12, category: "Beauty & Hair Care", discount: false, img: "images/Color WOW.jpeg" },
-    { id: 14, name: "Dior Palette", price: 10, category: "Beauty & Hair Care", discount: true, img: "images/Dior.jpeg" },
-    { id: 15, name: "Gisou", price: 14, category: "Beauty & Hair Care", discount: false, img: "images/Gisou.jpeg" },
-    { id: 16, name: "La Roche-Posay 2", price: 11, category: "Skincare", discount: true, img: "images/La Roche-Posay (2).jpeg" },
-    { id: 17, name: "Princess Rose", price: 13, category: "Beauty & Hair Care", discount: false, img: "images/Princess Rose.jpeg" },
-    { id: 18, name: "SPF", price: 9, category: "Skincare", discount: true, img: "images/SPF.jpeg" }
+    { id: 13, name: "Huda Beauty Easy Bake", price: 9, category: "Beauty & Hair Care", discount: true, img: "images/Huda Beauty Easy Bake.jpeg" },
+    { id: 14, name: "Color WOW", price: 12, category: "Beauty & Hair Care", discount: false, img: "images/Color WOW.jpeg" },
+    { id: 15, name: "Dior Palette", price: 10, category: "Beauty & Hair Care", discount: true, img: "images/Dior.jpeg" },
+    { id: 16, name: "Gisou", price: 14, category: "Beauty & Hair Care", discount: false, img: "images/Gisou.jpeg" },
+    { id: 17, name: "La Roche-Posay 2", price: 11, category: "Skincare", discount: true, img: "images/La Roche-Posay (2).jpeg" },
+    { id: 18, name: "Princess Rose", price: 13, category: "Beauty & Hair Care", discount: false, img: "images/Princess Rose.jpeg" },
+    { id: 19, name: "SPF", price: 9, category: "Skincare", discount: true, img: "images/SPF.jpeg" }
 ];
 
 // LOCALSTORAGE HELPERS
@@ -42,7 +43,6 @@ function getNextId() {
 }
 
 // CRUD OPERATIONS
-
 function createProduct(product) {
     const products = getProducts();
     product.id = getNextId();
@@ -65,7 +65,7 @@ function deleteProduct(id) {
     saveProducts(products);
 }
 
-//  DISPLAY PRODUCTS 
+// DISPLAY PRODUCTS
 function displayProducts(list, scroll = false) {
     const container = document.getElementById("productList");
     const msg = document.getElementById("emptyMsg");
@@ -107,7 +107,7 @@ function filterCategory(category) {
     const filtered = getProducts().filter(p => p.category === category);
     document.getElementById("emptyMsg").style.display = "none";
     displayProducts(filtered);
-    // Scroll to products
+
     document.getElementById("productList").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -210,10 +210,61 @@ function toggleCart() {
     document.getElementById("cartBox").classList.toggle("show");
 }
 
+// CHECKOUT PROCESS
+
 function showPayment() {
     if (cart.length === 0) { showToast("⚠️ Your cart is empty!"); return; }
+
+    const summaryBox = document.getElementById("orderSummaryBox");
+    let rows = cart.map(i => `
+        <div class="summary-row">
+            <span>${i.name} ×${i.qty}</span>
+            <span>€${(i.price * i.qty).toFixed(2)}</span>
+        </div>`).join("");
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0).toFixed(2);
+    summaryBox.innerHTML = `
+        <div class="summary-title">Order Summary</div>
+        ${rows}
+        <div class="summary-row summary-total"><span>Total</span><span>€${total}</span></div>`;
+
+    document.getElementById("checkoutStep1").style.display = "block";
+    document.getElementById("checkoutStep2").style.display = "none";
+    document.getElementById("stepDot1").classList.add("active");
+    document.getElementById("stepDot2").classList.remove("active");
+
     document.getElementById("paymentBox").style.display = "block";
     document.getElementById("paymentOverlay").style.display = "block";
+}
+
+function goToStep2() {
+    const first = document.getElementById("userFirstName").value.trim();
+    const last = document.getElementById("userLastName").value.trim();
+    const email = document.getElementById("userEmail").value.trim();
+    const phone = document.getElementById("userPhone").value.trim();
+
+    if (!first || !last || !email || !phone) {
+        showToast("⚠️ Please fill in all your details.");
+        return;
+    }
+    if (!email.includes("@")) {
+        showToast("⚠️ Please enter a valid email address.");
+        return;
+    }
+
+    document.getElementById("greetingName").textContent = `${first} ${last}`;
+    document.getElementById("cardName").value = `${first} ${last}`;
+
+    document.getElementById("checkoutStep1").style.display = "none";
+    document.getElementById("checkoutStep2").style.display = "block";
+    document.getElementById("stepDot1").classList.remove("active");
+    document.getElementById("stepDot2").classList.add("active");
+}
+
+function goBackToStep1() {
+    document.getElementById("checkoutStep1").style.display = "block";
+    document.getElementById("checkoutStep2").style.display = "none";
+    document.getElementById("stepDot1").classList.add("active");
+    document.getElementById("stepDot2").classList.remove("active");
 }
 
 function closePayment() {
@@ -232,12 +283,38 @@ function payNow() {
         return;
     }
 
+    // Save the order to LocalStorage
+    saveOrder();
+
     closePayment();
-    showToast("💳 Payment successful! Thank you!");
+    showToast("💳 Payment successful! Thank you for your order.");
     cart = [];
     saveCart();
     updateCart();
     toggleCart();
+}
+
+// ORDER STORAGE
+
+function saveOrder() {
+    const orders = JSON.parse(localStorage.getItem("pharma_orders") || "[]");
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0).toFixed(2);
+
+    const order = {
+        id: Date.now(),
+        date: new Date().toLocaleString(),
+        customer: {
+            firstName: document.getElementById("userFirstName").value.trim(),
+            lastName: document.getElementById("userLastName").value.trim(),
+            email: document.getElementById("userEmail").value.trim(),
+            phone: document.getElementById("userPhone").value.trim(),
+        },
+        items: cart.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
+        total: total
+    };
+
+    orders.unshift(order); // newest first
+    localStorage.setItem("pharma_orders", JSON.stringify(orders));
 }
 
 // HEALTH MENU
@@ -374,8 +451,10 @@ function switchTab(tab) {
     document.getElementById(`tab-${tab}`).classList.remove("hidden");
     event.target.classList.add("active");
     if (tab === "manage") renderAdminTable();
+    if (tab === "orders") renderOrders();
 }
 
+// ADMIN — READ & LISTING
 function renderAdminTable() {
     const keyword = (document.getElementById("adminSearch")?.value || "").toLowerCase();
     const products = getProducts().filter(p =>
@@ -404,7 +483,7 @@ function renderAdminTable() {
     `).join("");
 }
 
-// ADMIN — CREATE
+// ADMIN — CREATE & UPDATE
 function saveProduct() {
     const name = document.getElementById("adminName").value.trim();
     const price = parseFloat(document.getElementById("adminPrice").value);
@@ -419,7 +498,6 @@ function saveProduct() {
     }
 
     if (editId) {
-
         const success = updateProduct(parseInt(editId), { name, price, category, img, discount });
         if (success) {
             showAdminMsg(`✅ "${name}" updated successfully!`, "success");
@@ -428,7 +506,6 @@ function saveProduct() {
             displayProducts(getProducts()); // refresh storefront
         }
     } else {
-
         const created = createProduct({ name, price, category, img, discount });
         showAdminMsg(`✅ "${created.name}" added with ID #${created.id}!`, "success");
         resetForm();
@@ -463,6 +540,45 @@ function confirmDelete(id, name) {
         displayProducts(getProducts()); // refresh storefront
         showToast(`🗑 "${name}" deleted.`);
     }
+}
+
+// ADMIN — ORDERS TAB
+function renderOrders() {
+    const orders = JSON.parse(localStorage.getItem("pharma_orders") || "[]");
+    const container = document.getElementById("ordersList");
+    document.getElementById("ordersCount").textContent = orders.length;
+
+    if (orders.length === 0) {
+        container.innerHTML = `<p style="text-align:center;color:#999;padding:40px 0;">No orders yet.</p>`;
+        return;
+    }
+
+    container.innerHTML = orders.map(o => `
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <span class="order-id">#${String(o.id).slice(-6)}</span>
+                    <span class="order-date">${o.date}</span>
+                </div>
+                <span class="order-total">€${o.total}</span>
+            </div>
+            <div class="order-customer">
+                <span>👤 ${o.customer.firstName} ${o.customer.lastName}</span>
+                <span>📧 ${o.customer.email}</span>
+                <span>📞 ${o.customer.phone}</span>
+            </div>
+            <div class="order-items">
+                ${o.items.map(i => `<span class="order-item">${i.name} ×${i.qty} — €${(i.price * i.qty).toFixed(2)}</span>`).join("")}
+            </div>
+        </div>
+    `).join("");
+}
+
+function clearAllOrders() {
+    if (!confirm("Delete all orders? This cannot be undone.")) return;
+    localStorage.removeItem("pharma_orders");
+    renderOrders();
+    showToast("All orders cleared.");
 }
 
 function resetForm() {

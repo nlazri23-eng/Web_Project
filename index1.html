@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>PharmaCare</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <header>
@@ -76,8 +72,7 @@
     <section class="about">
         <div class="about-text">
             <h2>About PharmaCare</h2>
-            <p>PharmaCare is your trusted online pharmacy, dedicated to providing high-quality healthcare products,
-                vitamins, and skincare solutions. We focus on fast delivery, safety, and customer satisfaction.</p>
+            <p>PharmaCare is your trusted online pharmacy, dedicated to providing high-quality healthcare products, vitamins, and skincare solutions. We focus on fast delivery, safety, and customer satisfaction.</p>
             <p>Our mission is to make healthcare accessible and simple for everyone, anytime and anywhere.</p>
         </div>
         <div class="about-image">
@@ -138,7 +133,7 @@
     <!-- CART SIDEBAR -->
     <div class="cart" id="cartBox">
         <button class="close-cart" onclick="toggleCart()">✖</button>
-        <h3>🛒 Your Cart</h3>
+        <h3> Your Cart</h3>
         <ul id="cartItems"></ul>
         <div class="cart-footer">
             <p class="cart-total">Total: €<span id="total">0.00</span></p>
@@ -146,18 +141,74 @@
         </div>
     </div>
 
-    <!-- PAYMENT MODAL -->
+    <!-- CHECKOUT MODAL -->
     <div class="modal-overlay" id="paymentOverlay" onclick="closePayment()"></div>
     <div class="payment" id="paymentBox">
-        <h3>💳 Card Payment</h3>
-        <input type="text" placeholder="Card Number (16 digits)" maxlength="19" id="cardNumber">
-        <input type="text" placeholder="Card Holder Name" id="cardName">
-        <div class="card-row">
-            <input type="text" placeholder="MM/YY" maxlength="5" id="cardExpiry">
-            <input type="text" placeholder="CVV" maxlength="3" id="cardCvv">
+
+        <div class="checkout-steps">
+            <div class="step active" id="stepDot1">
+                <span class="step-num">1</span>
+                <span class="step-label">Your Details</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" id="stepDot2">
+                <span class="step-num">2</span>
+                <span class="step-label">Payment</span>
+            </div>
         </div>
-        <button class="pay-btn" onclick="payNow()">Pay Now</button>
-        <button class="cancel-btn" onclick="closePayment()">Cancel</button>
+
+        <!--  User details -->
+        <div id="checkoutStep1">
+            <h3>Your Details</h3>
+            <div class="checkout-row">
+                <div class="checkout-field">
+                    <label>First Name *</label>
+                    <input type="text" id="userFirstName" placeholder="e.g. Anna">
+                </div>
+                <div class="checkout-field">
+                    <label>Last Name *</label>
+                    <input type="text" id="userLastName" placeholder="e.g. Smith">
+                </div>
+            </div>
+            <div class="checkout-field">
+                <label>Email *</label>
+                <input type="email" id="userEmail" placeholder="anna@email.com">
+            </div>
+            <div class="checkout-field">
+                <label>Phone *</label>
+                <input type="tel" id="userPhone" placeholder="+355 69 123 4567">
+            </div>
+            <div class="checkout-summary" id="orderSummaryBox"></div>
+            <button class="pay-btn" onclick="goToStep2()">Continue to Payment</button>
+            <button class="cancel-btn" onclick="closePayment()">Cancel</button>
+        </div>
+
+        <!--  Card payment -->
+        <div id="checkoutStep2" style="display:none">
+            <h3>Card Payment</h3>
+            <p class="step-greeting">Paying as: <strong id="greetingName"></strong></p>
+            <div class="checkout-field">
+                <label>Card Number *</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+            <div class="checkout-field">
+                <label>Card Holder Name *</label>
+                <input type="text" id="cardName" placeholder="Name on card">
+            </div>
+            <div class="checkout-row">
+                <div class="checkout-field">
+                    <label>Expiry *</label>
+                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="checkout-field">
+                    <label>CVV *</label>
+                    <input type="text" id="cardCvv" placeholder="123" maxlength="3">
+                </div>
+            </div>
+            <button class="pay-btn" onclick="payNow()">Pay Now</button>
+            <button class="cancel-btn" onclick="goBackToStep1()">Back</button>
+        </div>
+
     </div>
 
     <!-- ADMIN PANEL MODAL -->
@@ -169,8 +220,9 @@
         </div>
 
         <div class="admin-tabs">
-            <button class="tab-btn active" onclick="switchTab('add')">➕ Add Product</button>
-            <button class="tab-btn" onclick="switchTab('manage')">📦 Manage Products</button>
+            <button class="tab-btn active" onclick="switchTab('add')"> Add Product</button>
+            <button class="tab-btn" onclick="switchTab('manage')"> Manage Products</button>
+            <button class="tab-btn" onclick="switchTab('orders')"> Orders</button>
         </div>
 
         <!-- ADD / EDIT FORM -->
@@ -236,6 +288,15 @@
                 </table>
             </div>
         </div>
+
+        <!-- ORDERS TAB -->
+        <div class="admin-tab hidden" id="tab-orders">
+            <div class="manage-header">
+                <h3>Customer Orders <span id="ordersCount" class="badge-count">0</span></h3>
+                <button class="cancel-btn" onclick="clearAllOrders()" style="font-size:13px;padding:7px 14px;">🗑 Clear All</button>
+            </div>
+            <div id="ordersList"></div>
+        </div>
     </div>
 
     <!-- CONTACT -->
@@ -255,5 +316,4 @@
 
     <script src="script.js"></script>
 </body>
-
 </html>
