@@ -1,0 +1,132 @@
+/* ADMIN LOGIN */
+.admin-login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    background: white;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    z-index: 10002;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -46%);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    overflow: hidden;
+}
+
+.admin-login.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%);
+}
+
+.admin-login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 22px;
+    background: linear-gradient(135deg, #1b5e20, var(--green));
+    color: white;
+}
+
+.admin-login-header h2 {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+}
+
+.admin-login-body {
+    padding: 24px;
+}
+
+.admin-login-subtitle {
+    margin: 0 0 20px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.admin-login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 15px;
+}
+
+.admin-login-field label {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.admin-login-field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: var(--radius-sm);
+    font: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-login-field input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.12);
+}
+
+.admin-login-btn {
+    width: 100%;
+    margin-top: 6px;
+    padding: 13px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--green);
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.admin-login-btn:hover {
+    background: #1b5e20;
+    transform: translateY(-1px);
+}
+
+.admin-login-msg {
+    min-height: 20px;
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.admin-login-msg.error {
+    color: #c62828;
+    font-weight: 600;
+}
+
+.admin-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout-admin {
+    height: 34px;
+    padding: 0 14px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.logout-admin:hover {
+    background: rgba(255, 255, 255, 0.32);
+}

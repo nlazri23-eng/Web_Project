@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="sq">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PharmaCare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.jpeg" alt="Logoja PharmaCare">
+            <h1 class="logo-text">
+                <span class="blue">Pharma</span><span class="green">Care</span>
+            </h1>
+        </div>
+        <nav class="nav-center">
+            <a href="#" onclick="showHome()">Kryefaqja</a>
+            <a href="#" onclick="displayProducts(getProducts(), true)">Produktet</a>
+            <div class="dropdown">
+                <a href="#" onclick="toggleHealthMenu()">Shëndeti & Këshilla</a>
+                <div class="mega-menu" id="healthMenu">
+                    <div class="menu-left">
+                        <ul>
+                            <li onclick="showHealthInfo('asthma')">Astma & Alergjitë</li>
+                            <li onclick="showHealthInfo('cold')">Ftohja & Gripi</li>
+                            <li onclick="showHealthInfo('coronavirus')">Coronavirus</li>
+                            <li onclick="showHealthInfo('diabetes')">Diabeti</li>
+                            <li onclick="showHealthInfo('hair')">Kujdesi për Flokët</li>
+                            <li onclick="showHealthInfo('mens')">Shëndeti i Burrave</li>
+                            <li onclick="showHealthInfo('mother')">Nëna & Foshnja</li>
+                            <li onclick="showHealthInfo('doctor')">Këshilla Online nga Mjeku</li>
+                            <li onclick="showHealthInfo('oral')">Shëndeti Oral</li>
+                            <li onclick="showHealthInfo('pain')">Menaxhimi i Dhimbjes</li>
+                            <li onclick="showHealthInfo('skin')">Kujdesi për Lëkurën</li>
+                            <li onclick="showHealthInfo('smoking')">Ndalimi i Duhanit</li>
+                        </ul>
+                    </div>
+                    <div class="menu-right" id="healthInfoPanel">
+                        <h3>Shëndeti & Këshilla</h3>
+                        <p>Zgjidhni një kategori për të parë informacion dhe rekomandime.</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#contact">Kontakt</a>
+        </nav>
+        <input type="text" id="search" placeholder="Kërko produkte..." oninput="searchProducts()">
+        <button class="cart-btn" onclick="toggleCart()">Shporta <span id="cartCount" class="cart-count">0</span></button>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Farmacia ku Mund të Besoni</h2>
+            <p>Përjetoni një shërbim modern shëndetësor me fokus te siguria, kujdesi dhe lehtësia.</p>
+            <p>Ofrojmë barna të certifikuara, këshilla profesionale dhe shërbim të shpejtë.</p>
+            <button class="cta-btn" onclick="displayProducts(getProducts(), true)">Bli Tani &rarr;</button>
+        </div>
+        <div class="hero-video">
+            <video autoplay muted loop>
+                <source src="images/pharmacy.mp4.mp4" type="video/mp4">
+                Shfletuesi juaj nuk e mbështet videon.
+            </video>
+        </div>
+    </section>
+
+    <h2 class="section-title">Rreth Nesh</h2>
+    <section class="about">
+        <div class="about-text">
+            <h2>Rreth PharmaCare</h2>
+            <p>PharmaCare është farmacia juaj e besuar online, e përkushtuar për produkte shëndetësore cilësore,
+                vitamina dhe zgjidhje për kujdesin e lëkurës. Ne fokusohemi te dërgesa e shpejtë, siguria dhe kënaqësia e klientit.</p>
+            <p>Misioni ynë është ta bëjmë kujdesin shëndetësor të thjeshtë dhe të arritshëm për të gjithë.</p>
+        </div>
+        <div class="about-image">
+            <img src="images/pharmacy-team.jpeg" alt="Ekipi i farmacisë">
+        </div>
+    </section>
+
+    <h2 class="section-title">Bli sipas Kategorive</h2>
+    <section class="categories">
+        <div class="card" onclick="filterCategory('Medicine')">
+            <img src="images/pain-relief1.jpeg" alt="Barna">
+            <h3>Barna</h3>
+            <p>Lehtësim dhimbjeje dhe antibiotikë</p>
+        </div>
+        <div class="card" onclick="filterCategory('Vitamins')">
+            <img src="images/vitamins.jpeg" alt="Vitamins">
+            <h3>Vitamina</h3>
+            <p>Forconi shëndetin dhe imunitetin</p>
+        </div>
+        <div class="card" onclick="filterCategory('Skincare')">
+            <img src="images/Skincare.jpeg" alt="Kujdes për lëkurën">
+            <h3>Kujdes për Lëkurën</h3>
+            <p>Zgjidhje për lëkurë të shëndetshme</p>
+        </div>
+        <div class="card" onclick="filterCategory('Baby Products')">
+            <img src="images/baby-care.jpeg" alt="Produkte për fëmijë">
+            <h3>Produkte për Fëmijë</h3>
+            <p>Produkte të sigurta për foshnja</p>
+        </div>
+        <div class="card" onclick="filterCategory('Beauty & Hair Care')">
+            <img src="images/beauty.jpeg" alt="Bukuri">
+            <h3>Bukuri</h3>
+            <p>Produkte për lëkurë dhe grim</p>
+        </div>
+    </section>
+
+    <p id="emptyMsg">Zgjidhni një kategori ose shikoni të gjitha produktet</p>
+    <section class="products" id="productList"></section>
+
+    <h2 class="section-title">Oferta të Veçanta</h2>
+    <section class="slider">
+        <div class="slide active">
+            <h2>Deri në 30% Ulje për Vitaminat</h2>
+            <p>Qëndroni të shëndetshëm këtë sezon</p>
+        </div>
+        <div class="slide">
+            <h2>Produktet Kryesore për Lëkurën</h2>
+            <p>Ndihuni mirë me vetëbesim</p>
+        </div>
+        <div class="slide">
+            <h2>Farmaci me Dërgesë të Shpejtë</h2>
+            <p>Dërgohet deri në derën tuaj</p>
+        </div>
+    </section>
+
+    <div class="cart" id="cartBox">
+        <button class="close-cart" onclick="toggleCart()">x</button>
+        <h3>Shporta Juaj</h3>
+        <ul id="cartItems"></ul>
+        <div class="cart-footer">
+            <p class="cart-total">Totali: &euro;<span id="total">0.00</span></p>
+            <button class="checkout-btn" onclick="showPayment()">Vazhdo me Pagesën &rarr;</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="paymentOverlay" onclick="closePayment()"></div>
+    <div class="payment" id="paymentBox">
+        <div class="checkout-steps">
+            <div class="step active" id="stepDot1">
+                <span class="step-num">1</span>
+                <span class="step-label">Të Dhënat Tuaja</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" id="stepDot2">
+                <span class="step-num">2</span>
+                <span class="step-label">Pagesa</span>
+            </div>
+        </div>
+
+        <div id="checkoutStep1">
+            <h3>Të Dhënat Tuaja</h3>
+            <div class="checkout-row">
+                <div class="checkout-field">
+                    <label>Emri *</label>
+                    <input type="text" id="userFirstName" placeholder="p.sh. Anna">
+                </div>
+                <div class="checkout-field">
+                    <label>Mbiemri *</label>
+                    <input type="text" id="userLastName" placeholder="p.sh. Smith">
+                </div>
+            </div>
+            <div class="checkout-field">
+                <label>Email *</label>
+                <input type="email" id="userEmail" placeholder="anna@email.com">
+            </div>
+            <div class="checkout-field">
+                <label>Telefoni *</label>
+                <input type="tel" id="userPhone" placeholder="+355 69 123 4567">
+            </div>
+            <div class="checkout-field">
+                <label>Adresa e Dërgesës *</label>
+                <input type="text" id="userAddress" placeholder="Rruga, qyteti, kodi postar">
+            </div>
+            <div class="checkout-summary" id="orderSummaryBox"></div>
+            <button class="pay-btn" onclick="goToStep2()">Vazhdo te Pagesa</button>
+            <button class="cancel-btn" onclick="closePayment()">Anulo</button>
+        </div>
+
+        <div id="checkoutStep2" style="display:none">
+            <h3>Pagesë me Kartë</h3>
+            <p class="step-greeting">Po paguani si: <strong id="greetingName"></strong></p>
+            <div class="checkout-field">
+                <label>Numri i Kartës *</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+            <div class="checkout-field">
+                <label>Emri në Kartë *</label>
+                <input type="text" id="cardName" placeholder="Emri në kartë">
+            </div>
+            <div class="checkout-row">
+                <div class="checkout-field">
+                    <label>Skadimi *</label>
+                    <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="checkout-field">
+                    <label>CVV *</label>
+                    <input type="text" id="cardCvv" placeholder="123" maxlength="3">
+                </div>
+            </div>
+            <button class="pay-btn" onclick="payNow()">Paguaj Tani</button>
+            <button class="cancel-btn" onclick="goBackToStep1()">Kthehu</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="adminOverlay" onclick="closeAdminPanel()"></div>
+    <div class="admin-login" id="adminLoginBox">
+        <div class="admin-login-header">
+            <h2>Hyrja e Adminit</h2>
+            <button class="close-admin" onclick="closeAdminLogin()">x</button>
+        </div>
+        <div class="admin-login-body">
+            <p class="admin-login-subtitle">Hyni për të menaxhuar produktet dhe porositë.</p>
+            <div class="admin-login-field">
+                <label>Emri i përdoruesit</label>
+                <input type="text" id="adminUsername" placeholder="admin" autocomplete="username">
+            </div>
+            <div class="admin-login-field">
+                <label>Fjalëkalimi</label>
+                <input type="password" id="adminPassword" placeholder="Shkruani fjalëkalimin" autocomplete="current-password">
+            </div>
+            <button class="admin-login-btn" onclick="loginAdmin()">Hyr</button>
+            <div id="adminLoginMsg" class="admin-login-msg"></div>
+        </div>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h2>Paneli i Adminit</h2>
+            <div class="admin-header-actions">
+                <button class="logout-admin" onclick="logoutAdmin()">Dil</button>
+                <button class="close-admin" onclick="closeAdminPanel()">x</button>
+            </div>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('add')">Shto Produkt</button>
+            <button class="tab-btn" onclick="switchTab('manage')">Menaxho Produktet</button>
+            <button class="tab-btn" onclick="switchTab('orders')">Porositë</button>
+        </div>
+
+        <div class="admin-tab" id="tab-add">
+            <h3 id="formTitle">Shto Produkt të Ri</h3>
+            <input type="hidden" id="editId">
+            <input type="hidden" id="currentAdminImg">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Emri i Produktit *</label>
+                    <input type="text" id="adminName" placeholder="p.sh. Vitamin D3">
+                </div>
+                <div class="form-group">
+                    <label>Çmimi (&euro;) *</label>
+                    <input type="number" id="adminPrice" placeholder="p.sh. 12" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Kategoria *</label>
+                    <select id="adminCategory">
+                        <option value="">Zgjidh kategorinë</option>
+                        <option value="Medicine">Barna</option>
+                        <option value="Vitamins">Vitamina</option>
+                        <option value="Skincare">Kujdes për Lëkurën</option>
+                        <option value="Baby Products">Produkte për Fëmijë</option>
+                        <option value="Beauty & Hair Care">Bukuri & Kujdes për Flokët</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Imazhi i Produktit</label>
+                    <input type="file" id="adminImg" accept="image/jpeg,image/png,image/webp">
+                    <small id="adminImgCurrent" class="admin-image-current"></small>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="adminDiscount"> Në Ofertë / Ulje
+                    </label>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="save-btn" onclick="saveProduct()">Ruaj Produktin</button>
+                <button class="reset-btn" onclick="resetForm()">Pastro</button>
+            </div>
+            <div id="adminMsg" class="admin-msg"></div>
+        </div>
+
+        <div class="admin-tab hidden" id="tab-manage">
+            <div class="manage-header">
+                <h3>Të Gjitha Produktet <span id="productCount" class="badge-count">0</span></h3>
+                <input type="text" id="adminSearch" placeholder="Filtro produktet..." oninput="renderAdminTable()">
+            </div>
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Emri</th>
+                            <th>Kategoria</th>
+                            <th>Çmimi</th>
+                            <th>Oferta</th>
+                            <th>Veprime</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="admin-tab hidden" id="tab-orders">
+            <div class="manage-header">
+                <h3>Porositë e Klientëve <span id="ordersCount" class="badge-count">0</span></h3>
+                <button class="cancel-btn" onclick="clearAllOrders()" style="font-size:13px;padding:7px 14px;">Fshi të Gjitha</button>
+            </div>
+            <div id="ordersList"></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Na Kontaktoni</h2>
+    <section id="contact" class="contact-section">
+        <div class="contact-card">
+            <div class="contact-icon">PharmaCare</div>
+            <h2>Phy. Irina Lazri</h2>
+            <p>support@pharmacare.com</p>
+            <p>+123 456 789</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 PharmaCare | Hapur 24/7 | Shëndeti Juaj, Prioriteti Ynë</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/classes/config.js"></script>
+    <script src="js/classes/StorageService.js"></script>
+    <script src="js/classes/Toast.js"></script>
+    <script src="js/classes/ProductService.js"></script>
+    <script src="js/classes/ProductView.js"></script>
+    <script src="js/classes/CartService.js"></script>
+    <script src="js/classes/CheckoutController.js"></script>
+    <script src="js/classes/HealthAdviceController.js"></script>
+    <script src="js/classes/SliderController.js"></script>
+    <script src="js/classes/AdminController.js"></script>
+    <script src="js/classes/PharmaCareApp.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

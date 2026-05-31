@@ -1,0 +1,9 @@
+﻿/* SECTION TITLE */
+.section-title {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--text);
+    margin: 50px 0 10px;
+}
+

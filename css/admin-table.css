@@ -1,0 +1,152 @@
+﻿/* MANAGE TABLE */
+.manage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.manage-header h3 {
+    margin: 0;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge-count {
+    background: var(--green);
+    color: white;
+    border-radius: 12px;
+    padding: 2px 10px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#adminSearch {
+    padding: 9px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 24px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    width: 200px;
+    transition: border-color 0.2s;
+}
+
+#adminSearch:focus {
+    border-color: var(--green);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-sm);
+    border: 1px solid #f0f0f0;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.admin-table thead th {
+    background: #f8f9fa;
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table tbody tr {
+    transition: background 0.15s;
+}
+
+.admin-table tbody tr:hover {
+    background: #fafffe;
+}
+
+.admin-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f5f5f5;
+    vertical-align: middle;
+}
+
+.id-badge {
+    background: #f0f4ff;
+    color: var(--blue-dark);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.cat-badge {
+    background: var(--green-pale);
+    color: var(--green);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sale-yes {
+    color: #e53935;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.sale-no {
+    color: #ccc;
+}
+
+.action-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn {
+    background: #e3f2fd;
+    color: #1565c0;
+    border: none;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.edit-btn:hover {
+    background: #1565c0;
+    color: white;
+}
+
+.delete-btn {
+    background: #ffebee;
+    color: #c62828;
+    border: none;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.delete-btn:hover {
+    background: #c62828;
+    color: white;
+}
+

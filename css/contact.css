@@ -1,0 +1,33 @@
+﻿/* CONTACT  */
+.contact-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    background: white;
+}
+
+.contact-card {
+    background: var(--green-pale);
+    border-radius: var(--radius);
+    padding: 40px 60px;
+    text-align: center;
+    border: 1px solid var(--green-mid);
+}
+
+.contact-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.contact-card h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--green);
+    margin: 0 0 12px;
+}
+
+.contact-card p {
+    color: #555;
+    margin: 6px 0;
+    font-size: 16px;
+}
+

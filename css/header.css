@@ -1,0 +1,127 @@
+﻿/* HEADER  */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 36px;
+    background: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+    gap: 16px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #2e7d32;
+}
+
+.logo-text {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -0.5px;
+}
+
+.blue {
+    color: var(--blue-dark);
+}
+
+.green {
+    color: var(--green);
+}
+
+.nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-center a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+}
+
+.nav-center a:hover {
+    background: var(--green-pale);
+    color: var(--green);
+}
+
+.admin-link {
+    background: #fff3e0 !important;
+    color: #e65100 !important;
+    border: 1px solid #ffccbc;
+}
+
+.admin-link:hover {
+    background: #ffe0b2 !important;
+}
+
+header input[type="text"] {
+    padding: 9px 14px;
+    border-radius: 24px;
+    border: 1.5px solid #e0e0e0;
+    font-size: 14px;
+    width: 200px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+
+header input[type="text"]:focus {
+    border-color: var(--green);
+}
+
+.cart-btn {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.cart-btn:hover {
+    background: var(--green-light);
+}
+
+.cart-count {
+    background: #e53935;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    display: none;
+}
+

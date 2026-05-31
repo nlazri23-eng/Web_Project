@@ -1,0 +1,40 @@
+﻿/* ABOUT */
+.about {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 70px 60px;
+    background: var(--white);
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--green);
+    margin: 0 0 16px;
+}
+
+.about-text p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+}
+
